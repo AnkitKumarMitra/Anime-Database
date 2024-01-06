@@ -1,0 +1,95 @@
+<%- include("partials/header.ejs") %>
+
+    <div class="container">
+        <div class="top-anime">
+            <h1 class="medium-text">Top 10 Anime</h1>
+            <% if(locals.topAnime) { %>
+                <% for(let i=0;i<10;i++){ %>
+                    <a class="anime-top" href="<%= topAnime.data[i].url %>">
+                        <p class="bold-text"> <%= i+1 %></p>
+                        <img src="<%= topAnime.data[i].images.jpg.small_image_url %>">
+                        <div class="info">
+                            <p class="thin-text top-anime-title"><u><%= topAnime.data[i].title_english %></u></p>
+                            <p class="thin-text"><%= topAnime.data[i].type %>, <%= topAnime.data[i].episodes %>, scored: <%= topAnime.data[i].score %></p>
+                        </div>
+                    </a>
+                <% } %>
+            <% } %>
+        </div>
+
+        <div class="center-content">
+
+            <div class="current-anime">
+                <h1 class="bold-text">Currently Airing</h1>
+
+                <hr>
+
+                <div class="anime-card">
+                    <% if(locals.currentAnime){ %>
+                        <% for(let i=0;i<8;i++){ %>
+                            <a class="card border" href="<%= currentAnime.data[i].url %>">
+                                <img src="<%= currentAnime.data[i].images.jpg.image_url %>">
+                                <p class="thin-text current-anime-name"><%= currentAnime.data[i].title_english %></p>
+                                <% if(currentAnime.data[i].score == null) {%>
+                                    <p>Scored: N/A</p>
+                                <% }else{ %>
+                                    <p>Scored: <%= currentAnime.data[i].score %></p>
+                                <% } %>
+                            </a>
+                        <% } %>
+                    <% } %>
+                </div>
+            </div>
+
+            <div class="next-season">
+                <h1 class="bold-text">Anime Next Season</h1>
+
+                <hr>
+
+                <div class="anime-card">
+                    <% if(locals.upcomingAnime){ %>
+                        <% for(let i=0;i<8;i++){ %>
+                            <a class="card border" href="<%= upcomingAnime.data[i].url %>">
+                                <img src="<%= upcomingAnime.data[i].images.jpg.image_url %>">
+                                <p class="thin-text current-anime-name"><%= upcomingAnime.data[i].title_english %></p>
+                                <% if(upcomingAnime.data[i].score == null) {%>
+                                    <p>Scored: N/A</p>
+                                <% }else{ %>
+                                    <p>Scored: <%= upcomingAnime.data[i].score %></p>
+                                <% } %>
+                            </a>
+                        <% } %>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+        <div class="random-anime border">
+            <h1 class="bold-text">Random Anime Suggestion</h1>
+            <% if(locals.randomAnime) {%>
+            <div class="suggestion-div">
+                <a class="img-name" href="<%= randomAnime.data.url %>">
+                    <img src="<%= randomAnime.data.images.jpg.image_url %>">
+                    <div class="suggestion-name medium-text">
+                        <p class="SuggestionName"><u><%= randomAnime.data.title %></u></p>
+                        <% if(randomAnime.data.type == null) {%>
+                            <p class="small-light-text">Type: N/A</p>
+                        <% } else{ %>
+                            <p class="small-light-text">Type: <%= randomAnime.data.type %></p>
+                        <% } %>
+                        <% if(randomAnime.data.score == null) {%>
+                            <p class="small-light-text">Scored: N/A</p>
+                        <% } else{ %>
+                            <p class="small-light-text">Scored: <%= randomAnime.data.score %></p>
+                        <% } %>
+                        <p class="small-light-text">Ep: <%= randomAnime.data.episodes %></p>
+                        <p class="small-light-text">Duration: <%= randomAnime.data.duration %></p>
+                        <p class="small-light-text">Source: <%= randomAnime.data.source %></p>
+                    </div>
+                </a>
+            </div>
+            <% } %>
+        </div>
+    </div>
+
+<%- include("partials/footer.ejs") %>

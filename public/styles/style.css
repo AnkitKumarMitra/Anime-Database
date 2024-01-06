@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap');
+
+/* --- Header Section Starts --- */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Kanit', sans-serif;
+    font-weight: 300;
+
+}
+
+body {
+    background-color: rgb(30, 30, 30);
+    color: white;
+}
+
+.border {
+    border: 1px solid rgb(50, 50, 50);
+}
+
+hr {
+    border: 1px solid rgb(50, 50, 50);
+    margin-bottom: 10px;
+}
+
+.thin-text {
+    font-weight: 300;
+}
+
+.medium-text {
+    font-weight: 400;
+}
+
+.bold-text {
+    font-weight: 500;
+}
+
+.small-light-text {
+    color: #999;
+    font-size: 0.9rem;
+}
+
+.navbar {
+    background-color: rgb(76, 76, 177);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2vw;
+    height: 64px;
+}
+
+.navigate {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 30%;
+}
+
+.home-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.search-box {
+    position: relative;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.search-field {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0 5px;
+}
+
+.search-field input {
+    flex: 1;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    font-size: 18px;
+}
+
+.search-field button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #555;
+    cursor: pointer;
+}
+
+.result-box {
+    display: none;
+    position: absolute;
+    top: 100%;
+    width: 244.34px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.result-box ul {
+    background-color: white;
+    border-top: 1px solid #999;
+    padding: 10px 5px;
+}
+
+.result-box ul li {
+    color: black;
+    list-style: none;
+    border-radius: 3px;
+    padding: 3px 3px;
+    cursor: pointer;
+}
+
+.result-box ul li:hover {
+    background-color: #e9f3ff;
+}
+
+.result-box.active {
+    display: block;
+}
+
+/* --- Header Section ends
+
+        Top Anime Section Starts --- */
+
+.container {
+    display: grid;
+    grid-template-columns: 3fr 6fr 3fr;
+    gap: 10px;
+    padding: 10px;
+}
+
+.top-anime {
+    height: 189.7vh;
+    border: 1px solid rgb(50, 50, 50);
+}
+
+.top-anime h1 {
+    color: white;
+    padding: 5px 10px;
+    background-color: #3f3f3f;
+    border-bottom: 1px solid black;
+}
+
+.top-anime a {
+    padding: 10px 5px;
+    text-decoration: none;
+    color: white;
+}
+
+.anime-top {
+    background-color: #2e2e2e;
+    display: grid;
+    grid-template-columns: 10px 40px 1fr;
+    gap: 10px;
+}
+
+.anime-top:hover {
+    opacity: 0.8;
+}
+
+.anime-top img {
+    width: 40px;
+}
+
+.top-anime-title {
+    color: rgb(134, 134, 255);
+}
+
+/* --- Top Anime Section Ends here
+        Center Section Starts here --- */
+
+.center-content {
+    height: fit-content;
+}
+
+.current-anime {
+    margin-bottom: 40px;
+}
+
+.current-anime h1 {
+    background-color: #3f3f3f;
+    padding: 5px 10px;
+}
+
+.anime-card {
+    display: grid;
+    grid-template-columns: 3fr 3fr 3fr 3fr;
+    gap: 10px;
+}
+
+.anime-card a {
+    padding: 5px;
+    color: white;
+    text-decoration: none;
+}
+
+.card:hover {
+    opacity: 0.6;
+}
+
+/* --- Center Content End here
+        Random Anime Content Start here --- */
+
+
+.random-anime {
+    height: 189.7vh;
+}
+
+.suggestion-div {
+    background-color: #2e2e2e;
+    padding: 10px 5px;
+}
+
+.random-anime h1 {
+    color: white;
+    padding: 5px 10px;
+    background-color: #3f3f3f;
+    border-bottom: 1px solid black;
+}
+
+.img-name {
+    display: grid;
+    grid-template-columns: 0.75fr 1.25fr;
+    gap: 15px;
+    text-decoration: none;
+    color: white;
+}
+
+.SuggestionName {
+    font-size: 1.5rem;
+    color: rgb(134, 134, 255);
+}
+
+.suggestion-name p:nth-child(1){
+    margin-bottom: 15px;
+}
+
+footer {
+    text-align: center;
+}
+
+footer p:nth-child(1){
+    font-size: 1.2rem;
+}
