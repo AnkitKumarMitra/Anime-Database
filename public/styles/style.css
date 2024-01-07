@@ -216,6 +216,10 @@ hr {
     padding: 10px 5px;
 }
 
+.suggestion-div:hover{
+    opacity: 0.6;
+}
+
 .random-anime h1 {
     color: white;
     padding: 5px 10px;
