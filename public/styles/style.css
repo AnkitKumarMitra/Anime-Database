@@ -6,7 +6,6 @@
     padding: 0;
     font-family: 'Kanit', sans-serif;
     font-weight: 300;
-
 }
 
 body {
@@ -65,6 +64,7 @@ hr {
 
 .search-box {
     position: relative;
+    width: 400px;
     border-radius: 5px;
     background-color: white;
 }
@@ -93,24 +93,30 @@ hr {
 }
 
 .result-box {
-    display: none;
+    background-color: transparent;
     position: absolute;
     top: 100%;
-    width: 244.34px;
-    max-height: 200px;
-    overflow-y: auto;
+    width: 400px;
+    max-height: 700px;
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.result-box::-webkit-scrollbar {
+    display: none;
 }
 
 .result-box ul {
-    background-color: white;
     border-top: 1px solid #999;
-    padding: 10px 5px;
 }
 
 .result-box ul li {
+    min-height: 75px;
+    max-height: 75px;
+    background-color: #2e2e2e;
     color: black;
     list-style: none;
-    border-radius: 3px;
     padding: 3px 3px;
     cursor: pointer;
 }
@@ -119,8 +125,28 @@ hr {
     background-color: #e9f3ff;
 }
 
-.result-box.active {
-    display: block;
+.result-box ul li a {
+    text-decoration: none;
+    display: flex;
+    gap: 10px;
+}
+
+.result-box ul li a p {
+    font-size: 0.7rem;
+    line-height: 12px;
+    color: #999;
+}
+
+.result-box ul li a p:nth-child(1){
+    color: rgb(134, 134, 255);
+    line-height: 18px;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.result-box ul li img {
+    min-width: 61px;
+    max-width: 61px;
 }
 
 /* --- Header Section ends
@@ -149,7 +175,7 @@ hr {
 .top-anime a {
     padding: 10px 5px;
     text-decoration: none;
-    color: white;
+    color: #999;
 }
 
 .anime-top {
@@ -216,7 +242,7 @@ hr {
     padding: 10px 5px;
 }
 
-.suggestion-div:hover{
+.suggestion-div:hover {
     opacity: 0.6;
 }
 
@@ -240,7 +266,7 @@ hr {
     color: rgb(134, 134, 255);
 }
 
-.suggestion-name p:nth-child(1){
+.suggestion-name p:nth-child(1) {
     margin-bottom: 15px;
 }
 
@@ -248,6 +274,6 @@ footer {
     text-align: center;
 }
 
-footer p:nth-child(1){
+footer p:nth-child(1) {
     font-size: 1.2rem;
 }

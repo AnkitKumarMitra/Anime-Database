@@ -29,13 +29,17 @@ app.get("/", async (req, res) => {
             upcomingAnime: nextSeasonAnimeData,
             randomAnime: randomAnimeData
         })
-    } catch(error) {
+    } catch (error) {
         res.render("index.html")
     }
-/*     res.render("index.ejs"); */
 });
 
-
+app.get("/search", async (req, res) => {
+    const searchItem = req.query.anime;
+    const getSearchItem = await axios.get(`${API_URL}anime?q=${searchItem}`);
+    const searchItemList = getSearchItem.data;
+    res.json(searchItemList.data);
+});
 
 app.listen(port, () => {
     console.log(`Server running at port: ${port}.`);
