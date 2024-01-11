@@ -1,0 +1,276 @@
+<%- include("partials/header.ejs") %>
+
+    <div class="anime-name-container">
+        <h1 class="bold-text">
+            <%= details.title %>
+        </h1>
+        <h2 class="medium-text">
+            <%= details.title_english %>
+        </h2>
+    </div>
+
+    <div class="anime-detail-container">
+        <div class="anime-info-container border">
+            <img src="<%= details.images.jpg.image_url %>">
+            <a href="<%= details.trailer.url %>" class="watch-trailer">Watch Trailer</a>
+            <div class="anime-info-action">
+                <button class="fav-btn" value="<%= details.mal_id %>">
+                    <% if (userDetails && isFavorite) { %>
+                        Remove from favorites
+                        <% } else { %>
+                            Add to favorites
+                            <% } %>
+                </button>
+                <button class="watch-list-btn" value="<%= details.mal_id %>">
+                    <% if (userDetails && watchList.hasRows) { %>
+                        Remove from watchlist
+                        <% } else { %>
+                            Add to watchlist
+                            <% } %>
+                </button>
+            </div>
+            <div class="anime-information">
+                <h3 class="bold-text">Information</h3>
+                <p>Type: <span>
+                        <%= details.type %>
+                    </span></p>
+                <p>Episodes <span>
+                        <%= details.episodes %>
+                    </span></p>
+                <p>Status: <span>
+                        <%= details.status %>
+                    </span></p>
+                <% if(details.airing) {%>
+                    <p>Aired: <span>
+                            <%= details.aired.prop.from.day %>-<%= details.aired.prop.from.month %>-<%=
+                                        details.aired.prop.from.year %> to ?
+                        </span></p>
+                    <% } else {%>
+                        <p>Aired: <span>
+                                <%= details.aired.prop.from.day %>-<%= details.aired.prop.from.month %>-<%=
+                                            details.aired.prop.from.year %> to <%= details.aired.prop.to.day %>-<%=
+                                                    details.aired.prop.to.month %>-<%= details.aired.prop.to.year %>
+                            </span></p>
+                        <% } %>
+                            <p>Duration: <span>
+                                    <%= details.duration %>
+                                </span></p>
+                            <p>Rating: <span>
+                                    <%= details.rating %>
+                                </span></p>
+                            <p>Broadcast: <span>
+                                    <%= details.broadcast.string %>
+                                </span></p>
+                            <p>Season: <span>
+                                    <%= details.season %>
+                                        <%= details.year %>
+                                </span></p>
+                            <p>Studio: <% for(let i=0;i<details.studios.length;i++) {%>
+                                    <% if(i==details.demographics.length - 1) {%>
+                                        <span><a href="<%= details.studios[i].url %>">
+                                                <%= details.studios[i].name %>
+                                            </a></span>
+                                        <% } else { %>
+                                            <span>
+                                                <%= details.studios[i].name %>,
+                                            </span>
+                                            <% }} %>
+                            </p>
+                            <p>Demographics:
+                                <% for(let i=0;i<details.demographics.length;i++) {%>
+                                    <% if(i==details.demographics.length - 1) {%>
+                                        <span>
+                                            <%= details.demographics[i].name %>
+                                        </span>
+                                        <% } else { %>
+                                            <span>
+                                                <%= details.demographics[i].name %>,
+                                            </span>
+                                            <% }} %>
+                            </p>
+                            <p>Genres:
+                                <% for(let i=0;i<details.genres.length;i++) {%>
+                                    <% if(i==details.genres.length - 1) {%>
+                                        <span>
+                                            <%= details.genres[i].name %>
+                                        </span>
+                                        <% } else { %>
+                                            <span>
+                                                <%= details.genres[i].name %>,
+                                            </span>
+                                            <% }} %>
+                            </p>
+            </div>
+            <div class="anime-info-titles">
+                <h3 class="bold-text">Alternative Title: </h3>
+                <% for(let i=0;i<details.titles.length;i++) {%>
+                    <p>
+                        <%= details.titles[i].type %>: <span>
+                                <%= details.titles[i].title %>
+                            </span>
+                    </p>
+                    <% } %>
+            </div>
+        </div>
+        <div class="main-anime-detail-container border">
+            <h1 class="medium-text"><u>Details</u></h1>
+
+            <div class="anime-stat-container">
+                <div class="stat-list-container">
+                    <div class="stat-div border">
+                        <div class="score border">
+                            <p>SCORE</p>
+                            <P class="bold-text">
+                                <%= details.score %>
+                            </P>
+                            <p>
+                                <%= details.scored_by %> users
+                            </p>
+                        </div>
+                        <div class="stat-detail">
+                            <div class="stat-div-up">
+                                <p>Ranked: <span>#<%= details.rank %></span></p>
+                                <p>Popularity: <span>#<%= details.popularity %></span></p>
+                                <p>Members: <span>
+                                        <%= details.members %>
+                                    </span></p>
+                            </div>
+
+                            <div class="stat-div-down">
+                                <p>
+                                    <%= details.season %>
+                                        <%= details.year %>
+                                </p>
+                                <p class="side-border">
+                                    <%= details.type %>
+                                </p>
+                                <% if(details.studios.length> 0) {%>
+                                    <p>
+                                        <%= details.studios[0].name %>
+                                    </p>
+                                    <% } %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-list border">
+                        <% if (userDetails && watchList.hasRows) { %>
+                            <select name="status" class="status">
+                                <option value="Completed" <%=watchList.rows[0].status==='Completed' ? 'selected' : '' %>
+                                    >Completed</option>
+                                <option value="Watching" <%=watchList.rows[0].status==='Watching' ? 'selected' : '' %>
+                                    >Watching</option>
+                                <option value="Plan to watch" <%=watchList.rows[0].status==='Plan to watch' ? 'selected'
+                                    : '' %>>Plan to watch</option>
+                                <option value="On Hold" <%=watchList.rows[0].status==='On Hold' ? 'selected' : '' %>>On
+                                    Hold</option>
+                                <option value="Dropped" <%=watchList.rows[0].status==='Dropped' ? 'selected' : '' %>
+                                    >Dropped</option>
+                            </select>
+                            <% } else { %>
+                                <select name="status" class="status" disabled>
+                                    <option value="Completed">Completed</option>
+                                    <option value="Watching">Watching</option>
+                                    <option value="Plan to watch" selected>Plan to watch</option>
+                                    <option value="On Hold">On Hold</option>
+                                    <option value="Dropped">Dropped</option>
+                                </select>
+                                <% } %>
+                                    <p> <i class="fa-solid fa-star"></i> &nbsp;
+                                        <input type="number" id="points" name="points" min="0" max="10"
+                                            value="<%= (watchList.rows && watchList.rows.length > 0 && watchList.rows[0].score > 0) ? watchList.rows[0].score : 0 %>"
+                                            class="score-epi score-field"><span> / 10</span>
+                                    </p>
+                                    <p> Ep: &nbsp;
+                                        <input type="hidden" value="<%= details.episodes %>" class="max-episode">
+                                        <input type="number" id="points" name="points" min="0"
+                                            max="<%= details.episodes %>"
+                                            value="<%= (watchList.rows && watchList.rows.length > 0) ? watchList.rows[0].episodes : 0 %>"
+                                            class="score-epi episode-field"><span> / <%= details.episodes %></span>
+                                    </p>
+
+                    </div>
+                </div>
+                <div class="trailer-video">
+                    <% if(details.trailer.url) {%>
+                        <a href="<%= details.trailer.url %>"><img src="<%= details.trailer.images.medium_image_url %>"
+                                alt=""></a>
+                        <div class="centered-play-button"><i class="fa-solid fa-play"></i></div>
+                        <% } %>
+                </div>
+            </div>
+
+            <div class="content-div">
+                <h2 class="medium-text">Synopsis
+                    <hr>
+                </h2>
+                <p><%- details.synopsis.replace(/\n\n/g, '<br><br>' ) %></p>
+            </div>
+
+            <div class="content-div">
+                <h2 class="medium-text">Background
+                    <hr>
+                </h2>
+                <p>
+                    <% if (details.background) { %>
+                        <%- details.background.replace(/\n\n/g, '<br><br>' ) %>
+                            <% } %>
+                </p>
+            </div>
+
+            <div class="content-div related-anime">
+                <h2 class="medium-text">Related Anime
+                    <hr>
+                </h2>
+                <% for(let i=0;i<details.relations.length;i++) {%>
+                    <%= details.relations[i].relation %>: <span>
+                            <% for(let j=0;j<details.relations[i].entry.length;j++) {%>
+                                <a href="<%= details.relations[i].entry[j].url %>">
+                                    <%= details.relations[i].entry[j].name %>
+                                </a>
+                                <hr>
+                        </span>
+                        <% } }%>
+            </div>
+
+            <form class="review-content">
+                <h2>Write Your Thoughts...
+                    <hr>
+                </h2>
+                <div class="review-box"><span>Heading: </span><input type="text" class="review-title-input"
+                        placeholder="Heading...">
+                    <textarea class="review-content-text" cols="30" rows="10" placeholder="Review..."></textarea>
+                    <button class="review-submit">Submit</button>
+                </div>
+            </form>
+            <% if(locals.reviews.length> 0) {%>
+                <div class="review-container">
+                    <h2 class="medium-text">Reviews
+                        <hr>
+                    </h2>
+
+
+                    <% for(let i=0;i<reviews.length;i++) {%>
+                        <div class="review-card">
+                            <h3 class="bold-text">
+                                <%= reviews[i].review_title %>
+                            </h3>
+                            <p class="small-light-text"><span>User: <%= reviews[i].user_name %></span> <span>Scored: <%=
+                                        reviews[i].score %></span></p>
+                            <p>
+                                <%= reviews[i].review %>
+                            </p>
+                            <p class="small-light-text">
+                                <%= reviews[i].date %>
+                            </p>
+                        </div>
+                        <% } %>
+
+                </div>
+                <% } %>
+
+        </div>
+        <div class="spacer"></div>
+    </div>
+    <input type="hidden" id="anime-id" name="anime_id" value="<%= details.mal_id %>">
+
+    <%- include("partials/footer.ejs") %>

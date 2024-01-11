@@ -8,18 +8,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/styles/anime.css">
+    <link rel="stylesheet" href="/styles/animelist.css">
     <link rel="stylesheet" href="/styles/style.css">
 </head>
 
 <body>
     <nav class="navbar">
-        <h1 class="logo bold-text">The Anime Database</h1>
+        <h1 class="logo bold-text"><a href="/home">The Anime Database</a></h1>
         <div class="navigate">
-            <form onsubmit="searchAnime(event)" class="home">
-                <button type="submit" class="home-btn">
-                    <i class="fa-solid fa-house"></i>
-                </button>
-            </form>
+            <% if(userDetails === null) {%>
+            <a href="/signin" class="login-btn">Login</a>
+            <% } else {%>
+                <div class="profile-option">
+                    <button onclick="openProfileOptions()" class="profile-btn">Welcome, <%= userDetails.user_name %>!</button>
+                    <div id="myProfile" class="profile-content">
+                      <a href="/animelist">My List</a>
+                      <a href="/signout">Signout</a>
+                    </div>
+                  </div>
+            <% } %>
+
+            <a href="/home"><i class="fa-solid fa-house"></i></a>
 
             <div class="search-box">
                 <!--  <form action="/search" method="GET" class="search-field"> -->
@@ -36,8 +46,6 @@
             </div>
         </div>
     </nav>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="/scripts/app.js"></script>
 </body>
 
 </html>

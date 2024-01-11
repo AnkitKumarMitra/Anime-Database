@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;900&display=swap');
 
 /* --- Header Section Starts --- */
 * {
@@ -34,6 +34,10 @@ hr {
     font-weight: 500;
 }
 
+.super-bold-text {
+    font-weight: 900;
+}
+
 .small-light-text {
     color: #999;
     font-size: 0.9rem;
@@ -48,12 +52,77 @@ hr {
     height: 64px;
 }
 
+.navbar .logo a {
+    text-decoration: none;
+    color: white;
+}
+
+.fa-house {
+    font-size: 1.5rem;
+}
+
 .navigate {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    width: 30%;
+    align-items: center;
+    gap: 20px;
+    width: 35%;
 }
+
+.navigate a {
+    color: white;
+    text-decoration: none;
+}
+
+.login-btn {
+    padding: 5px 20px;
+    background-color: rgb(57, 57, 128);
+    border: 1px solid black;
+}
+
+.profile-btn {
+    background-color: rgb(57, 57, 128);
+    color: white;
+    min-width: 160px;
+    padding: 5px 20px;
+    font-size: 16px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.profile-btn:hover,
+.profile-btn:focus {
+    background-color: #2980B9;
+}
+
+.profile-option {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.profile-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.profile-option a:hover {
+    background-color: #ddd;
+}
+
+.show {display: block;}
+
 
 .home-btn {
     background-color: transparent;
@@ -113,7 +182,6 @@ hr {
 
 .result-box ul li {
     min-height: 75px;
-    max-height: 75px;
     background-color: #2e2e2e;
     color: black;
     list-style: none;
@@ -137,7 +205,7 @@ hr {
     color: #999;
 }
 
-.result-box ul li a p:nth-child(1){
+.result-box ul li a p:nth-child(1) {
     color: rgb(134, 134, 255);
     line-height: 18px;
     font-size: 1rem;
@@ -161,7 +229,7 @@ hr {
 }
 
 .top-anime {
-    height: 189.7vh;
+    height: 100%;
     border: 1px solid rgb(50, 50, 50);
 }
 
@@ -208,7 +276,7 @@ hr {
     margin-bottom: 40px;
 }
 
-.current-anime h1 {
+.anime-container h1 {
     background-color: #3f3f3f;
     padding: 5px 10px;
 }
@@ -225,6 +293,22 @@ hr {
     text-decoration: none;
 }
 
+.fill {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.fill img {
+    object-fit: cover;
+    width: 225px;
+    height: 319px;
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%
+}
+
 .card:hover {
     opacity: 0.6;
 }
@@ -234,7 +318,7 @@ hr {
 
 
 .random-anime {
-    height: 189.7vh;
+    height: 100%;
 }
 
 .suggestion-div {
@@ -272,6 +356,11 @@ hr {
 
 footer {
     text-align: center;
+    color: #999;
+}
+
+.fa-brands {
+    cursor: pointer;
 }
 
 footer p:nth-child(1) {

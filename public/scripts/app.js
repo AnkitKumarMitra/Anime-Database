@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    searchInput.addEventListener("input", debounce(fetchResults, 300))
+    searchInput.addEventListener("input", debounce(fetchResults, 700))
 
     async function fetchResults() {
         const searchItem = searchInput.value.trim();
@@ -25,14 +25,14 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleItemsVisibility(false);
         } else {
             const response = await axios.get(`/search?anime=${searchItem}`);
-            displayItems(response.data)
+            displayItems(response.data);
         }
     };
 
     function displayItems(result) {
         console.log(result);
         if (Array.isArray(result)) {
-            resultContainer.innerHTML = result.map(result => `<li class="border searchEle"><a href="${result.url}"><img src="${result.images.jpg.small_image_url}"><div><p><u>${result.title}</u></p><p>Year: ${result.year}</p><p>Score: ${result.score}</p><p>Status: ${result.status}</p></div></a></li>`).join("");
+            resultContainer.innerHTML = result.map(result => `<li class="border searchEle"><a href="/anime/${result.mal_id}"><img src="${result.images.jpg.small_image_url}"><div><p><u>${result.title}</u></p><p>Year: ${result.year}</p><p>Score: ${result.score}</p><p>Status: ${result.status}</p></div></a></li>`).join("");
         } else {
             resultContainer.innerHTML = 'Result not found';
         }
