@@ -32,7 +32,7 @@ Follow these steps to set up the project locally:
 
 7. Database Setup
 
-Make sure you have PostgreSQL installed on your machine. Create a database and configure the connection in the .env file. Use the following SQL queries to set up the necessary tables:
+Make sure you have PostgreSQL installed on your machine. Create a database and configure the connection in the index.js file. Use the following SQL queries to set up the necessary tables:
 
     > CREATE TABLE users (
     >    user_id SERIAL PRIMARY KEY,
