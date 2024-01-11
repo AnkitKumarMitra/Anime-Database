@@ -7,11 +7,11 @@ const app = express();
 const port = 3000;
 const API_URL = `https://api.jikan.moe/v4/`;
 const db = new pg.Client({
-    user: "postgres",
-    host: "localhost",
-    database: "AnimeDB",
-    password: "ankit",
-    port: "5433"
+    user: "postgres", //Add your Postgres user name
+    host: "localhost", //Add you Postgres host name
+    database: "AnimeDB", //Add you Database name
+    password: "youPassword", //Add your Postgres password
+    port: "5432" //Add your Postgres port
 });
 let currentUser = 0;
 
@@ -344,18 +344,6 @@ app.post("/addReview", async (req, res) => {
         })
     }
 });
-
-/* app.get("/test", async (req, res) => {
-    try {
-        const newUser = await db.query("INSERT INTO users (user_name, email, password) VALUES ($1, $2, $3) RETURNING  *;", [req.body.username, req.body.email, req.body.password]);
-        console.log("New User Created:",newUser.rows[0].user_name);
-        currentUser = newUser.rows[0].user_id;
-        console.log("id: ",currentUser);
-        res.redirect("/");
-    } catch (err) {
-        console.error(err);
-    }
-}); */
 
 app.listen(port, () => {
     console.log(`Server running at port: ${port}.`);
