@@ -14,7 +14,7 @@ Follow these steps to set up the project locally:
 
 2. Clone your forked repository to your local machine:
 
-    > git clone https://github.com/your-username/The-Anime-Database.git
+    > git clone https://github.com/AnkitKumarMitra/Anime-Database.git
    
 5. Navigate to the Project Directory
 
