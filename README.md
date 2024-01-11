@@ -34,34 +34,34 @@ Follow these steps to set up the project locally:
 
 Make sure you have PostgreSQL installed on your machine. Create a database and configure the connection in the .env file. Use the following SQL queries to set up the necessary tables:
 
-> CREATE TABLE users (
->    user_id SERIAL PRIMARY KEY,
->    user_name VARCHAR(50),
->    email VARCHAR(50),
->    password VARCHAR(50) UNIQUE
-> );
+    > CREATE TABLE users (
+    >    user_id SERIAL PRIMARY KEY,
+    >    user_name VARCHAR(50),
+    >    email VARCHAR(50),
+    >    password VARCHAR(50) UNIQUE
+    > );
 
-> CREATE TABLE reviews (
->    id SERIAL PRIMARY KEY,
->    anime_id INT,
->   review TEXT,
->    date VARCHAR(50),
->    user_id INT REFERENCES users(user_id) ON DELETE CASCADE
-> );
+    > CREATE TABLE reviews (
+    >    id SERIAL PRIMARY KEY,
+    >    anime_id INT,
+    >   review TEXT,
+    >    date VARCHAR(50),
+    >    user_id INT REFERENCES users(user_id) ON DELETE CASCADE
+    > );
 
-> CREATE TABLE animelist (
->    id SERIAL PRIMARY KEY UNIQUE,
->    anime_id INT,
->    score INT CHECK (score >= 1 AND score <= 10),
->    status VARCHAR(50),
->    user_id INT REFERENCES users(user_id) ON DELETE CASCADE
-> );
+    > CREATE TABLE animelist (
+    >    id SERIAL PRIMARY KEY UNIQUE,
+    >    anime_id INT,
+    >    score INT CHECK (score >= 1 AND score <= 10),
+    >    status VARCHAR(50),
+    >    user_id INT REFERENCES users(user_id) ON DELETE CASCADE
+    > );
 
-> CREATE TABLE favoritelist (
->    id SERIAL PRIMARY KEY,
->    animeid INT,
->    user_id INT REFERENCES users(user_id) ON DELETE CASCADE
-> );
+    > CREATE TABLE favoritelist (
+    >    id SERIAL PRIMARY KEY,
+    >    animeid INT,
+    >    user_id INT REFERENCES users(user_id) ON DELETE CASCADE
+    > );
 
 8. Starting the Project
 
