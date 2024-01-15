@@ -2,17 +2,22 @@ import express from "express";
 import axios from "axios";
 import bodyParser from "body-parser";
 import pg from "pg";
+import bcrypt from "bcrypt";
+import env from "dotenv";
 
 const app = express();
 const port = 3000;
 const API_URL = `https://api.jikan.moe/v4/`;
+env.config();
+const saltRounds = process.env.SALT_ROUNDS;
 const db = new pg.Client({
     user: "postgres",
     host: "localhost",
     database: "AnimeDB",
-    password: "ankit",
+    password: process.env.YOUR_PASSWORD,
     port: "5433"
 });
+
 let currentUser = 0;
 
 async function getCurrentUser() {
@@ -121,7 +126,7 @@ app.get("/anime/:id", async (req, res) => {
     const response = await axios.get(`${API_URL}anime/${id}/full`)
     const review = await db.query(
         "SELECT users.user_name, animelist.score, reviews.date, reviews.review_title, reviews.review FROM reviews JOIN users ON users.user_id = reviews.user_id LEFT JOIN animelist ON animelist.anime_id = reviews.anime_id AND animelist.user_id = reviews.user_id WHERE reviews.anime_id = $1 ORDER BY reviews.id DESC;",
-[id]
+        [id]
     );
     const result = response.data;
     const user = await getCurrentUser();
@@ -146,13 +151,28 @@ app.get("/registerUser", (req, res) => {
 
 app.post("/register", async (req, res) => {
     try {
-        const newUser = await db.query("INSERT INTO users (user_name, email, password) VALUES ($1, $2, $3) RETURNING  *;", [req.body.username, req.body.email, req.body.password]);
-        console.log("New User Created:",newUser.rows[0].user_name);
-        currentUser = newUser.rows[0].user_id;
-        console.log("id: ",currentUser);
-        res.redirect("/");
+        const existingUser = await db.query("SELECT * FROM users WHERE email = $1;", [req.body.email]);
+
+        if (existingUser.rows.length > 0) {
+            console.log(`User with email ${req.body.email} already exists.`);
+            return res.status(400).send("User with this email already exists");
+        } else {
+            bcrypt.hash(req.body.password, saltRounds, async (err, hash) => {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).send("Internal Server Error");
+                } else {
+                    const newUser = await db.query("INSERT INTO users (user_name, email, password) VALUES ($1, $2, $3) RETURNING *;", [req.body.username, req.body.email, hash]);
+                    console.log("New User Created:", newUser.rows[0].user_name);
+                    currentUser = newUser.rows[0].user_id;
+                    console.log("id: ", currentUser);
+                    res.redirect("/");
+                }
+            });
+        }
     } catch (err) {
         console.error(err);
+        res.status(500).send("Internal Server Error");
     }
 });
 
@@ -160,15 +180,23 @@ app.post("/login", async (req, res) => {
     try {
         const loggedInUser = await db.query("SELECT * FROM users WHERE user_name = $1 OR email = $1;", [req.body.username]);
         const users = loggedInUser.rows;
-        const matchingUser = users.find(user => (user.user_name === req.body.username || user.email === req.body.username) && user.password === req.body.password);
+
+        if (users.length === 0) {
+            return res.status(401).send("Invalid username or password");
+        }
+
+        const matchingUser = users.find(user => (user.user_name === req.body.username || user.email === req.body.username) && bcrypt.compare(req.body.password, user.password));
 
         if (matchingUser) {
             currentUser = matchingUser.user_id;
             console.log(`${matchingUser.user_name} with id ${currentUser} logged in.`);
             res.redirect("/");
+        } else {
+            res.status(404).send("Invalid user name or password");
         }
     } catch (err) {
         console.error(err);
+        res.status(500).send("Internal Server Error");
     }
 
 });
@@ -321,10 +349,12 @@ app.post("/addReview", async (req, res) => {
         const data = req.body;
         const date = getDate();
         try {
+            console.log(`recieved`);
             const addReview = await db.query(
                 "INSERT INTO reviews (anime_id, review_title, review, date, user_id) VALUES ($1, $2, $3, $4, $5)",
                 [data.animeId, data.reviewTitle, data.review, date, user.user_id]
             );
+            console.log(`{req.body} added`);
             res.json({
                 message: "Review Added",
                 response: "added"
@@ -337,7 +367,7 @@ app.post("/addReview", async (req, res) => {
             });
         }
 
-    }else {
+    } else {
         res.json({
             message: "Login to add review",
             reposne: "failed"
