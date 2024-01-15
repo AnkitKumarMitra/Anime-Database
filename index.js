@@ -375,18 +375,6 @@ app.post("/addReview", async (req, res) => {
     }
 });
 
-/* app.get("/test", async (req, res) => {
-    try {
-        const newUser = await db.query("INSERT INTO users (user_name, email, password) VALUES ($1, $2, $3) RETURNING  *;", [req.body.username, req.body.email, req.body.password]);
-        console.log("New User Created:",newUser.rows[0].user_name);
-        currentUser = newUser.rows[0].user_id;
-        console.log("id: ",currentUser);
-        res.redirect("/");
-    } catch (err) {
-        console.error(err);
-    }
-}); */
-
 app.listen(port, () => {
     console.log(`Server running at port: ${port}.`);
 })
